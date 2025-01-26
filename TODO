@@ -1,0 +1,10 @@
+- a = b
+- +=, -=, *=, /=
+- complicated lvalue eg. a = b + x - z
+- scopes
+- functions
+- if-statements
+- loops 
+- arrays
+
+- stdlib: sys_alloc, sys_free, sys_exit, sys_print
