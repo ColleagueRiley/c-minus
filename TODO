@@ -1,10 +1,7 @@
-- a = b
+- stdlib: sys_alloc, sys_free, sys_print
 - +=, -=, *=, /=
-- complicated lvalue eg. a = b + x - z
 - scopes
-- functions
 - if-statements
+- complicated lvalue eg. a = b + x - z
 - loops 
 - arrays
-
-- stdlib: sys_alloc, sys_free, sys_exit, sys_print

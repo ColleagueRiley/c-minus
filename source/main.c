@@ -1,8 +1,8 @@
-#define C_PARSER_IMPLEMENTATION
-#include <c_parser.h>
+#define CMINUS_PARSER_IMPLEMENTATION
+#include <cminus_parser.h>
 
-typedef C_ENUM(uint32_t, programArgs) {
-    c_asmOnly = C_BIT(0),
+typedef CMINUS_ENUM(uint32_t, programArgs) {
+    cminus_asmOnly = CMINUS_BIT(0),
 };
 
 char string_buffer[0x10000];
@@ -16,8 +16,8 @@ int main(int argc, char **argv) {
 
     for (size_t index = 1; index < argc; index++) {
         if (argv[index][0] == '-') {
-            if (strcmp(argv[index], "-S") == 0)
-                args |= c_asmOnly;
+            if (*((uint32_t*)argv[index]) == *((uint32_t*)"-S"))
+                args |= cminus_asmOnly;
             continue;
         }
 
@@ -37,19 +37,18 @@ int main(int argc, char **argv) {
         fclose(file);
 
         FILE* output = fopen("out.asm", "w+");
-        c_parse(text, size, string_buffer, sizeof(string_buffer), output);
+        cminus_parse(text, size, string_buffer, sizeof(string_buffer), output);
         fclose(output);
         
-        if (args & c_asmOnly)
+        if (args & cminus_asmOnly)
             continue;
         
         argv[index][strlen(argv[index]) - 1] = 'o';
         sprintf(string_buffer, "nasm -f elf out.asm -o %s", argv[index]);
         system(string_buffer);
-        printf("%s\n", string_buffer);
     }
     
-    if (args & c_asmOnly)
+    if (args & cminus_asmOnly)
         return 0;
 
     memcpy(string_buffer, "ld -m elf_i386 ", 16);
@@ -57,7 +56,6 @@ int main(int argc, char **argv) {
     for (size_t index = 1; index < argc; index++) {
         size_t size = strlen(argv[index]);
         strcpy(&string_buffer[i], argv[index]);
-        printf("%s\n", argv[index]);
         i += size;
     }
     

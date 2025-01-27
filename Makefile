@@ -12,11 +12,12 @@ all: $(OUTPUT)
 
 debug: $(OUTPUT)
 	./$(OUTPUT) $(EXAMPLE)
-	make clean
+	./a.out
+	@make clean
 
-debugAsm: $(OUTPUT)
+debugAsmCmp: $(OUTPUT)
 	./$(OUTPUT) -S $(EXAMPLE)
-	make debugAsm
+	@make debugAsm
 
 debugAsm: $(OUTPUT)
 	nasm -f elf out.asm -o out.o
@@ -24,7 +25,7 @@ debugAsm: $(OUTPUT)
 	#make clean
 
 clean:
-	rm -f *.o *.exe $(OUTPUT)
+	@rm -f *.o *.exe $(OUTPUT)
 
 wipe:
-	rm -f *.o *.exe $(OUTPUT) *.asm out *.s
+	@rm -f *.o *.exe $(OUTPUT) *.asm out *.s
