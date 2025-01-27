@@ -50,7 +50,7 @@ void func() {
 
 * functions calls
 
-```
+```c
 int f = 9;
 void func(int b, int c, int e) {
     int a = b;
