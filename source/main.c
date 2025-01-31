@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
 
         FILE* output = fopen("out.asm", "w+");
         cminus_parse(text, size, string_buffer, sizeof(string_buffer), output);
+        free(text);
         fclose(output);
         
         if (args & cminus_asmOnly)
